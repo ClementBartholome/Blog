@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" type="text/css" href="./Contenu/style.css?<?php echo time(); ?>" />
+        <link rel="stylesheet" type="text/css" href="./Content/style.css?<?php echo time(); ?>" />
         <title><?= $titre ?></title>
     </head>
     <body>
