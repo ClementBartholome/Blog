@@ -34,9 +34,9 @@ class Article extends Modele {
     }
 
     
-     public function ajouterarticle($titre, $contenu) {
-        $sql = 'INSERT INTO T_article (BIL_TITRE, BIL_CONTENU, BIL_DATE) VALUES (?, ?, NOW())';
-        $this->executerRequete($sql, array($titre, $contenu));
+    public function ajouterarticle($titre, $contenu, $image) {
+        $sql = 'INSERT INTO T_article (BIL_TITRE, BIL_CONTENU, BIL_DATE, BIL_IMAGE) VALUES (?, ?, NOW(), ?)';
+        $this->executerRequete($sql, array($titre, $contenu, $image));
     }
 
     public function deletearticle($idarticle) {

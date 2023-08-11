@@ -5,21 +5,25 @@
         <h1 class="titreArticle"><?= $article['titre'] ?></h1>
 
         <form method="post" action="index.php?action=modifier_article_form&id=<?= $article['id'] ?>">
-            <input type="submit" value="Modifier cet article">
-        </form>
-        
-        <form method="post" action="index.php?action=supprimer_article&id=<?= $article['id'] ?>">
-            <input type="submit" value="Supprimer cet article">
+            <button type="submit">Modifier cet article</button>
         </form>
 
-        
+        <form method="post" action="index.php?action=supprimer_article&id=<?= $article['id'] ?>">
+            <button type="submit">Supprimer cet article</button>
+        </form>
     </div>
     <time><?= $article['date'] ?></time>
+
+    <!-- Afficher l'image de couverture -->
+    <?php if (!empty($article['image'])): ?>
+        <img src="<?= $article['image'] ?>" alt="Image de couverture">
+    <?php endif; ?>
+
     <p><?= $article['contenu'] ?></p>
 </article>
 <hr />
 <div>
-    <h1 id="titreReponses">Réponses à <?= $article['titre'] ?></h1>
+    <h1 id="titreReponses">Réponses à l'article "<?= $article['titre'] ?>"</h1>
 </div>
 <?php foreach ($comments as $comment): ?>
     <p><?= $comment['auteur'] ?> dit :</p>
@@ -33,6 +37,5 @@
     <textarea id="txtCommentaire" name="contenu" rows="4" 
               placeholder="Votre commentaire" required></textarea><br />
     <input type="hidden" name="id" value="<?= $article['id'] ?>" />
-    <input type="submit" value="Commenter" />
+    <button type="submit" value="Commenter">Commenter</button>
 </form>
-

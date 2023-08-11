@@ -37,7 +37,27 @@ class ControllerArticle {
     
     // Traite le formulaire et ajoute le article
     public function ajouterarticle($titre, $contenu) {
-        $this->article->ajouterarticle($titre, $contenu);
+        // Récupérez le fichier envoyé
+        $image = isset($_FILES['image']) ? $_FILES['image'] : null;
+
+        
+    
+        // Vérifiez s'il y a une image envoyée
+        if (!empty($image['name'])) {
+            // Définissez le chemin de sauvegarde pour l'image
+            $uploadDir = '../images';
+            $uploadFile = $uploadDir . basename($image['name']);
+    
+            // Déplacez l'image téléchargée vers le dossier de destination
+            if (move_uploaded_file($image['tmp_name'], $uploadFile)) {
+                // L'image a été téléchargée avec succès, vous pouvez enregistrer le chemin dans la base de données
+                $this->article->ajouterarticle($titre, $contenu, $uploadFile);
+            }
+        } else {
+            // Aucune image envoyée, enregistrez l'article sans image
+            $this->article->ajouterarticle($titre, $contenu, null);
+        }
+    
         header("Location: index.php");
         exit();
     }

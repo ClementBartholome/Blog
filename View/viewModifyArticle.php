@@ -7,5 +7,5 @@
         <textarea id="contenu" name="contenu" class="editor"><?= htmlspecialchars($article['contenu']) ?></textarea>
     </div>
     <input type="hidden" name="idArticle" value="<?= $article['id'] ?>">
-    <input type="submit" value="Modifier">
+    <button type="submit">Modifier</button>
 </form>
