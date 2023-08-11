@@ -1,0 +1,144 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: #333;
+  background: #f4f4f4;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1 {
+  color: #333;
+}
+
+button,
+input,
+textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background: #007bff;
+}
+
+footer {
+  margin: 20px 0;
+  text-align: center;
+  color: #888;
+}
+
+.titreBillet {
+  margin-bottom: 0;
+}
+
+.article-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#global {
+  background: #fff;
+  width: 40%;
+  margin: 10px auto;
+  text-align: justify;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+}
+
+#contenu {
+  padding: 10px;
+}
+
+#titreBlog,
+footer {
+  text-align: center;
+}
+
+#titreReponses {
+  font-size: 1em;
+}
+
+.add-article-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px;
+  padding: 10px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: white;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title-editor {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #fff;
+  color: #333;
+  outline: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  width: 100%;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.editor-container {
+  width: 100%;
+}
+
+.editor {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 200px;
+  background: #fff;
+  color: #333;
+  outline: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  width: 100%;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  max-width: 100%;
+}
+
+.editor-toolbar {
+  background-color: #f2f2f2;
+  padding: 10px 0 0 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 5px;
+}
+
+.editor-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: 5px;
+  color: black;
+  padding: 0;
+}
