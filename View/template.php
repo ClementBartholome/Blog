@@ -20,5 +20,6 @@
                 Blog réalisé avec PHP et MySQL. 
             </footer>
         </div> 
+        <script src="./js/setupEditorButtons.js"></script>
     </body>
 </html>
