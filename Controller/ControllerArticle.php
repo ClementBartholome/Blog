@@ -39,13 +39,11 @@ class ControllerArticle {
     public function ajouterarticle($titre, $contenu) {
         // Récupérez le fichier envoyé
         $image = isset($_FILES['image']) ? $_FILES['image'] : null;
-
-        
     
         // Vérifiez s'il y a une image envoyée
         if (!empty($image['name'])) {
             // Définissez le chemin de sauvegarde pour l'image
-            $uploadDir = '../images';
+            $uploadDir = './images/';
             $uploadFile = $uploadDir . basename($image['name']);
     
             // Déplacez l'image téléchargée vers le dossier de destination
@@ -61,6 +59,7 @@ class ControllerArticle {
         header("Location: index.php");
         exit();
     }
+    
 
     public function deletearticle($idarticle) {
         $this->article->deletearticle($idarticle);

@@ -71,13 +71,27 @@ header {
   gap: 20px;
 }
 
+.article-content-preview {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.article-content-preview img {
+  max-width: 300px;
+}
+
 #global {
   background: #fff;
   width: 40%;
   margin: 10px auto;
-  text-align: justify;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+}
+
+.article-content img {
+  width: 100%;
+  margin-top: 16px;
 }
 
 #contenu {
@@ -147,10 +161,12 @@ textarea::placeholder {
 
 .editor-toolbar {
   background-color: #f2f2f2;
-  padding: 10px 0 0 10px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
   display: flex;
   gap: 5px;
+  margin: 10px 0;
+  width: 100%;
 }
 
 .editor-button {

@@ -13,13 +13,13 @@
         </form>
     </div>
     <time><?= $article['date'] ?></time>
-
-    <!-- Afficher l'image de couverture -->
-    <?php if (!empty($article['image'])): ?>
-        <img src="<?= $article['image'] ?>" alt="Image de couverture">
-    <?php endif; ?>
-
-    <p><?= $article['contenu'] ?></p>
+    <div class="article-content">
+        <!-- Cover image -->
+        <?php if (!empty($article['image'])): ?>
+            <img src="<?= $article['image'] ?>" alt="Image de couverture">
+        <?php endif; ?>
+        <p><?= $article['contenu'] ?></p>
+    </div>
 </article>
 <hr />
 <div>

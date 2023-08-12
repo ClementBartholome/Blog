@@ -9,12 +9,14 @@ class Article extends Modele {
      * @return PDOStatement La liste des articles
      */
     public function getarticles() {
-        $sql = 'select BIL_ID as id, BIL_DATE as date,'
-                . ' BIL_TITRE as titre, BIL_CONTENU as contenu from T_article'
-                . ' order by BIL_ID desc';
+        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
+                . ' BIL_TITRE AS titre, BIL_CONTENU AS contenu, BIL_IMAGE AS image'
+                . ' FROM T_article'
+                . ' ORDER BY BIL_ID DESC';
         $articles = $this->executerRequete($sql);
         return $articles;
     }
+    
 
     /** Renvoie les informations sur un article
      * 
@@ -23,9 +25,10 @@ class Article extends Modele {
      * @throws Exception Si l'identifiant du article est inconnu
      */
     public function getarticle($idarticle) {
-        $sql = 'select BIL_ID as id, BIL_DATE as date,'
-                . ' BIL_TITRE as titre, BIL_CONTENU as contenu from T_article'
-                . ' where BIL_ID=?';
+        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
+                . ' BIL_TITRE AS titre, BIL_CONTENU AS contenu, BIL_IMAGE AS image'
+                . ' FROM T_article'
+                . ' WHERE BIL_ID=?';
         $article = $this->executerRequete($sql, array($idarticle));
         if ($article->rowCount() > 0)
             return $article->fetch(); 

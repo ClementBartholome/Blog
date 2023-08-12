@@ -8,7 +8,12 @@
             </a>
             <time class="date"><?= $article['date'] ?></time>
         </div>
-        <p class="contenu"><?= mb_strimwidth($article['contenu'], 0, 300, "..."); ?></p>
+        <div class="article-content-preview">
+            <p class="contenu"><?= mb_strimwidth($article['contenu'], 0, 300, "..."); ?></p>
+            <?php if (!empty($article['image'])): ?>
+                <img src="<?= $article['image'] ?>" alt="Image de couverture">
+            <?php endif; ?>
+        </div>
     </article>
     <hr />
 <?php endforeach; ?>

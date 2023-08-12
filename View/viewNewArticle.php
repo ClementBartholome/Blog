@@ -5,13 +5,37 @@
     <label for="contenu">Contenu :</label>
     <div class="editor-container">
         <div class="editor-toolbar">
-            <button type="button" class="editor-button"><b>B</b></button>
-            <button type="button" class="editor-button"><i>I</i></button>
+            <button type="button" class="editor-button" data-tag="b"><b>B</b></button>
+            <button type="button" class="editor-button" data-tag="i"><i>I</i></button>
         </div>
         <textarea id="contenu" name="contenu" class="editor"></textarea>
     </div>
     <br>
     <label for="image">Image de couverture :</label>
     <input type="file" id="image" name="image"><br>
-    <input type="submit" value="Ajouter">
+    <button type="submit">Ajouter l'article</button>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editorButtons = document.querySelectorAll('.editor-button');
+
+        editorButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const editor = document.querySelector('.editor');
+                const startPos = editor.selectionStart;
+                const endPos = editor.selectionEnd;
+                const selectedText = editor.value.substring(startPos, endPos);
+                const tag = button.getAttribute('data-tag');
+                const tagOpen = `<${tag}>`;
+                const tagClose = `</${tag}>`;
+                const newText = editor.value.substring(0, startPos) + tagOpen + selectedText + tagClose + editor.value.substring(endPos);
+
+                editor.value = newText;
+                editor.selectionStart = startPos + tagOpen.length;
+                editor.selectionEnd = endPos + tagOpen.length;
+                editor.focus();
+            });
+        });
+    });
+</script>
