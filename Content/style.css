@@ -78,7 +78,8 @@ header {
 }
 
 .article-content-preview img {
-  max-width: 300px;
+  max-width: 50%;
+  object-fit: cover;
 }
 
 #global {
@@ -94,7 +95,7 @@ header {
   margin-top: 16px;
 }
 
-#contenu {
+#content {
   padding: 10px;
 }
 

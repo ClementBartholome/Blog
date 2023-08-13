@@ -6,20 +6,20 @@ class Configuration {
     private static $parametres;
 
     /**
-     * Renvoie la valeur d'un paramètre de configuration
+     * Renvoie la value d'un paramètre de configuration
      * 
-     * @param string $nom Nom du paramètre
-     * @param string $valeurParDefaut Valeur à renvoyer par défaut
-     * @return string Valeur du paramètre
+     * @param string $name name du paramètre
+     * @param string $defaultValue value à renvoyer par défaut
+     * @return string value du paramètre
      */
-    public static function get($nom, $valeurParDefaut = null) {
-        if (isset(self::getParametres()[$nom])) {
-            $valeur = self::getParametres()[$nom];
+    public static function get($name, $defaultValue = null) {
+        if (isset(self::getParametres()[$name])) {
+            $value = self::getParametres()[$name];
         }
         else {
-            $valeur = $valeurParDefaut;
+            $value = $defaultValue;
         }
-        return $valeur;
+        return $value;
     }
 
     /**
@@ -31,18 +31,17 @@ class Configuration {
      */
     private static function getParametres() {
         if (self::$parametres == null) {
-            $cheminFichier = "Config/dev.ini";
-            if (!file_exists($cheminFichier)) {
-                $cheminFichier = "Config/prod.ini";
+            $filePath = "Config/dev.ini";
+            if (!file_exists($filePath)) {
+                $filePath = "Config/prod.ini";
             }
-            if (!file_exists($cheminFichier)) {
+            if (!file_exists($filePath)) {
                 throw new Exception("Aucun fichier de configuration trouvé");
             }
             else {
-                self::$parametres = parse_ini_file($cheminFichier);
+                self::$parametres = parse_ini_file($filePath);
             }
         }
         return self::$parametres;
     }
-
 }

@@ -2,7 +2,7 @@
 
 require_once 'Config/Configuration.php';
 
-abstract class Modele {
+abstract class Model {
 
     /** Objet PDO d'accès à la BD 
         Statique donc partagé par toutes les instances des classes dérivées */
@@ -15,15 +15,15 @@ abstract class Modele {
      * @param array $params Paramètres de la requête
      * @return PDOStatement Résultats de la requête
      */
-    protected function executerRequete($sql, $params = null) {
+    protected function executeRequest($sql, $params = null) {
         if ($params == null) {
-            $resultat = self::getBdd()->query($sql);   // exécution directe
+            $result = self::getBdd()->query($sql);   // exécution directe
         }
         else {
-            $resultat = self::getBdd()->prepare($sql); // requête préparée
-            $resultat->execute($params);
+            $result = self::getBdd()->prepare($sql); // requête préparée
+            $result->execute($params);
         }
-        return $resultat;
+        return $result;
     }
 
     /**
@@ -36,9 +36,9 @@ abstract class Modele {
             // Récupération des paramètres de configuration BD
             $dsn = Configuration::get("dsn");
             $login = Configuration::get("login");
-            $mdp = Configuration::get("mdp");
+            $password = Configuration::get("password");
             // Création de la connexion
-            self::$bdd = new PDO($dsn, $login, $mdp, 
+            self::$bdd = new PDO($dsn, $login, $password, 
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         return self::$bdd;

@@ -15,28 +15,28 @@ class ControllerArticle {
     }
 
     // Affiche les détails sur un article
-    public function article($idarticle) {
-        $article = $this->article->getArticle($idarticle);
-        $comments = $this->comment->getComments($idarticle);
+    public function article($idArticle) {
+        $article = $this->article->getArticle($idArticle);
+        $comments = $this->comment->getComments($idArticle);
         $view = new View("article");
-        $view->generer(array('article' => $article, 'comments' => $comments));
+        $view->generate(array('article' => $article, 'comments' => $comments));
     }
 
     // Ajoute un comment à un article
-    public function Comment($auteur, $contenu, $idarticle) {
+    public function Comment($author, $content, $idArticle) {
         // Sauvegarde du comment
-        $this->comment->ajouterComment($auteur, $contenu, $idarticle);
+        $this->comment->ajouterComment($author, $content, $idArticle);
         // Actualisation de l'affichage du article
-        $this->article($idarticle);
+        $this->article($idArticle);
     }
 
     public function newarticleForm() {
         $view = new View("NewArticle");
-        $view->generer(array('contenu' => ''));
+        $view->generate(array('content' => ''));
     }
     
     // Traite le formulaire et ajoute le article
-    public function ajouterarticle($titre, $contenu) {
+    public function addArticle($title, $content) {
         // Récupérez le fichier envoyé
         $image = isset($_FILES['image']) ? $_FILES['image'] : null;
     
@@ -49,11 +49,11 @@ class ControllerArticle {
             // Déplacez l'image téléchargée vers le dossier de destination
             if (move_uploaded_file($image['tmp_name'], $uploadFile)) {
                 // L'image a été téléchargée avec succès, vous pouvez enregistrer le chemin dans la base de données
-                $this->article->ajouterarticle($titre, $contenu, $uploadFile);
+                $this->article->addArticle($title, $content, $uploadFile);
             }
         } else {
             // Aucune image envoyée, enregistrez l'article sans image
-            $this->article->ajouterarticle($titre, $contenu, null);
+            $this->article->addArticle($title, $content, null);
         }
     
         header("Location: index.php");
@@ -61,8 +61,8 @@ class ControllerArticle {
     }
     
 
-    public function deletearticle($idarticle) {
-        $this->article->deletearticle($idarticle);
+    public function deletearticle($idArticle) {
+        $this->article->deletearticle($idArticle);
         header("Location: index.php");
         exit();
     }
@@ -70,11 +70,11 @@ class ControllerArticle {
     public function modifyArticleForm($idArticle) {
         $article = $this->article->getArticle($idArticle);
         $view = new View("ModifyArticle");
-        $view->generer(array('article' => $article));
+        $view->generate(array('article' => $article));
     }
     
-    public function modifyArticle($idArticle, $titre, $contenu) {
-        $this->article->modifyArticle($idArticle, $titre, $contenu);
+    public function modifyArticle($idArticle, $title, $content) {
+        $this->article->modifyArticle($idArticle, $title, $content);
         header("Location: index.php?action=article&id=$idArticle");
         exit();
     }

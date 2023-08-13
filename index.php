@@ -3,4 +3,4 @@
 require 'Controller/Router.php';
 
 $router = new Router();
-$router->routerRequete();
+$router->routerRequest();

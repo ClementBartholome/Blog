@@ -15,6 +15,6 @@ class ControllerHome {
   public function home() {
     $articles = $this->article->getArticles();
     $vue = new View("Home");
-    $vue->generer(array('articles' => $articles));
+    $vue->generate(array('articles' => $articles));
   }
 }

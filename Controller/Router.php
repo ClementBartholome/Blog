@@ -14,37 +14,37 @@ class Router {
     }
 
     // Route une requête entrante : exécution l'action associée
-    public function routerRequete() {
+    public function routerRequest() {
         try {
             if (isset($_GET['action'])) {
                 if ($_GET['action'] == 'article') {
-                    $idarticle = intval($this->getParametre($_GET, 'id'));
-                    if ($idarticle != 0) {
-                        $this->ctrlarticle->article($idarticle);
+                    $idArticle = intval($this->getParametre($_GET, 'id'));
+                    if ($idArticle != 0) {
+                        $this->ctrlarticle->article($idArticle);
                     }
                     else
                         throw new Exception("Identifiant de article non valide");
                 }
                 else if ($_GET['action'] == 'comment') {
-                    $auteur = $this->getParametre($_POST, 'auteur');
-                    $contenu = $this->getParametre($_POST, 'contenu');
-                    $idarticle = $this->getParametre($_POST, 'id');
-                    $this->ctrlarticle->Comment($auteur, $contenu, $idarticle);
+                    $author = $this->getParametre($_POST, 'author');
+                    $content = $this->getParametre($_POST, 'content');
+                    $idArticle = $this->getParametre($_POST, 'id');
+                    $this->ctrlarticle->Comment($author, $content, $idArticle);
                 }
 
                 else if ($_GET['action'] == 'ajouter_article_form') {
-                    $this->ctrlarticle->newarticleForm();
+                    $this->ctrlarticle->newArticleForm();
                 } 
                 
                 else if ($_GET['action'] == 'ajouter_article') {
-                    $titre = $this->getParametre($_POST, 'titre');
-                    $contenu = $this->getParametre($_POST, 'contenu');
-                    $this->ctrlarticle->ajouterarticle($titre, $contenu);
+                    $title = $this->getParametre($_POST, 'title');
+                    $content = $this->getParametre($_POST, 'content');
+                    $this->ctrlarticle->addArticle($title, $content);
                 } 
                 
                 else if ($_GET['action'] == 'supprimer_article') {
-                    $idarticle = $this->getParametre($_GET, 'id');
-                    $this->ctrlarticle->deletearticle($idarticle);
+                    $idArticle = $this->getParametre($_GET, 'id');
+                    $this->ctrlarticle->deleteArticle($idArticle);
                 }
 
                 else if ($_GET['action'] == 'modifier_article_form') {
@@ -54,9 +54,9 @@ class Router {
                 
                 else if ($_GET['action'] == 'modifier_article') {
                     $idArticle = $this->getParametre($_POST, 'idArticle');
-                    $titre = $this->getParametre($_POST, 'titre');
-                    $contenu = $this->getParametre($_POST, 'contenu');
-                    $this->ctrlarticle->modifyArticle($idArticle, $titre, $contenu);
+                    $title = $this->getParametre($_POST, 'title');
+                    $content = $this->getParametre($_POST, 'content');
+                    $this->ctrlarticle->modifyArticle($idArticle, $title, $content);
                 }
                 
                 else
@@ -74,16 +74,16 @@ class Router {
 
     private function error($msgError) {
         $vue = new View("Error");
-        $vue->generer(array('msgError' => $msgError));
+        $vue->generate(array('msgError' => $msgError));
     }
 
     // Recherche un paramètre dans un tableau
-    private function getParametre($tableau, $nom) {
-        if (isset($tableau[$nom])) {
-            return $tableau[$nom];
+    private function getParametre($table, $name) {
+        if (isset($table[$name])) {
+            return $table[$name];
         }
         else
-            throw new Exception("Paramètre '$nom' absent");
+            throw new Exception("Paramètre '$name' absent");
     }
 
 }

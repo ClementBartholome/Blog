@@ -1,7 +1,7 @@
-<?php $titre = 'Mon Blog'; ?>
+<?php $title = 'Mon Blog'; ?>
 
 <?php ob_start() ?>
 <p>Une erreur est survenue : <?= $msgError ?></p>
-<?php $contenu = ob_get_clean(); ?>
+<?php $content = ob_get_clean(); ?>
 
 <?php require 'template.php'; ?>
