@@ -14,7 +14,12 @@ class ControllerHome {
   // Affiche la liste de tous les articles du blog
   public function home() {
     $articles = $this->article->getArticles();
-    $vue = new View("Home");
-    $vue->generate(array('articles' => $articles));
+    $view = new View("Home");
+    $view->generate(array('articles' => $articles));
   }
+
+  public function loginPage() {
+    $view = new View('Login');
+    $view->generate([]);
+}
 }

@@ -2,15 +2,19 @@
 
 require_once 'Controller/ControllerHome.php';
 require_once 'Controller/ControllerArticle.php';
+require_once 'Controller/ControllerLogin.php';
 require_once 'View/View.php';
 class Router {
 
     private $ctrlhome;
     private $ctrlarticle;
 
+    private $ctrllogin;
+
     public function __construct() {
         $this->ctrlhome = new ControllerHome();
         $this->ctrlarticle = new ControllerArticle();
+        $this->ctrllogin = new ControllerLogin();
     }
 
     // Route une requête entrante : exécution l'action associée
@@ -42,15 +46,14 @@ class Router {
                     $this->ctrlarticle->addArticle($title, $content);
                 } 
                 
-                else if ($_GET['action'] == 'supprimer_article') {
-                    $idArticle = $this->getParametre($_GET, 'id');
-                    $this->ctrlarticle->deleteArticle($idArticle);
-                }
-
                 else if ($_GET['action'] == 'modifier_article_form') {
                     $idArticle = $this->getParametre($_GET, 'id');
                     $this->ctrlarticle->modifyArticleForm($idArticle);
                 } 
+                else if ($_GET['action'] == 'supprimer_article') {
+                    $idArticle = $this->getParametre($_GET, 'id');
+                    $this->ctrlarticle->deleteArticle($idArticle);
+                }
                 
                 else if ($_GET['action'] == 'modifier_article') {
                     $idArticle = $this->getParametre($_POST, 'idArticle');
@@ -58,6 +61,10 @@ class Router {
                     $content = $this->getParametre($_POST, 'content');
                     $this->ctrlarticle->modifyArticle($idArticle, $title, $content);
                 }
+
+                else if ($_GET['action'] == 'loginform') {
+                    $this->ctrlhome->loginPage();
+                }                
                 
                 else
                     throw new Exception("Action non valide");

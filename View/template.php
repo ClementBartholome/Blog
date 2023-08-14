@@ -12,6 +12,7 @@
                     <h1 class="blog-title">Mon Blog</h1>
                 </a>
                 <p class="blog-welcome">Bienvenue sur ce blog.</p>
+                <a href="index.php?action=loginform" class="btn-connexion">Se connecter</a>
             </header>
             <div id="contenu">
                 <?= $content ?>
