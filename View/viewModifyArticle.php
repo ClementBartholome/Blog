@@ -7,6 +7,7 @@
         <div class="editor-toolbar">
             <button type="button" class="editor-button" data-tag="b"><b>B</b></button>
             <button type="button" class="editor-button" data-tag="i"><i>I</i></button>
+            <button type="button" class="editor-button" data-tag="br">↵</button>
         </div>
         <textarea id="content" name="content" class="editor"><?= htmlspecialchars($article['content']) ?></textarea>
     </div>

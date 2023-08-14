@@ -14,7 +14,6 @@ class ControllerArticle {
         $this->comment = new Comment();
     }
 
-    // Affiche les détails sur un article
     public function article($idArticle) {
         $article = $this->article->getArticle($idArticle);
         $comments = $this->comment->getComments($idArticle);
@@ -22,7 +21,6 @@ class ControllerArticle {
         $view->generate(array('article' => $article, 'comments' => $comments));
     }
 
-    // Ajoute un comment à un article
     public function Comment($author, $content, $idArticle) {
         // Sauvegarde du comment
         $this->comment->ajouterComment($author, $content, $idArticle);
