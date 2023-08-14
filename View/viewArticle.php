@@ -23,7 +23,7 @@
 </article>
 <hr />
 <div>
-    <h1 id="titreReponses">Réponses à l'article "<?= $article['title'] ?>"</h1>
+    <h1 id="titreReponses">Commentaires de l'article "<?= $article['title'] ?>"</h1>
 </div>
 <?php foreach ($comments as $comment): ?>
     <p><?= $comment['author'] ?> dit :</p>
