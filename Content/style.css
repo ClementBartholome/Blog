@@ -102,10 +102,6 @@ header {
   object-fit: cover;
 }
 
-#content {
-  padding: 10px;
-}
-
 #titreBlog,
 footer {
   text-align: center;

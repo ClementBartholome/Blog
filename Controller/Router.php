@@ -8,7 +8,6 @@ class Router {
 
     private $ctrlhome;
     private $ctrlarticle;
-
     private $ctrllogin;
 
     public function __construct() {
@@ -36,11 +35,11 @@ class Router {
                     $this->ctrlarticle->Comment($author, $content, $idArticle);
                 }
 
-                else if ($_GET['action'] == 'ajouter_article_form') {
+                else if ($_GET['action'] == 'new_article_form') {
                     $this->ctrlarticle->newArticleForm();
                 } 
                 
-                else if ($_GET['action'] == 'ajouter_article') {
+                else if ($_GET['action'] == 'add_article') {
                     $title = $this->getParametre($_POST, 'title');
                     $content = $this->getParametre($_POST, 'content');
                     $this->ctrlarticle->addArticle($title, $content);

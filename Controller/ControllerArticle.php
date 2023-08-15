@@ -22,9 +22,7 @@ class ControllerArticle {
     }
 
     public function Comment($author, $content, $idArticle) {
-        // Sauvegarde du comment
         $this->comment->addComment($author, $content, $idArticle);
-        // Actualisation de l'affichage du article
         $this->article($idArticle);
     }
 
@@ -33,24 +31,21 @@ class ControllerArticle {
         $view->generate(array('content' => ''));
     }
     
-    // Traite le formulaire et ajoute le article
     public function addArticle($title, $content) {
-        // Récupérez le fichier envoyé
+        // Get the sent file
         $image = isset($_FILES['image']) ? $_FILES['image'] : null;
     
-        // Vérifiez s'il y a une image envoyée
+        // Check if the file is an image
         if (!empty($image['name'])) {
-            // Définissez le chemin de sauvegarde pour l'image
             $uploadDir = './images/';
             $uploadFile = $uploadDir . basename($image['name']);
     
-            // Déplacez l'image téléchargée vers le dossier de destination
+            // Check if the file has been uploaded
             if (move_uploaded_file($image['tmp_name'], $uploadFile)) {
-                // L'image a été téléchargée avec succès, vous pouvez enregistrer le chemin dans la base de données
                 $this->article->addArticle($title, $content, $uploadFile);
             }
         } else {
-            // Aucune image envoyée, enregistrez l'article sans image
+            // No image sent, add the article without image
             $this->article->addArticle($title, $content, null);
         }
     

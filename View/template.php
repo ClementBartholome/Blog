@@ -18,7 +18,7 @@
                     <a href="index.php?action=loginform" class="btn-connexion">Se connecter</a>
                 <?php endif; ?>
             </header>
-            <div id="contenu">
+            <div id="content">
                 <?= $content ?>
             </div> 
             <footer>

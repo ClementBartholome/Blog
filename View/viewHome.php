@@ -20,7 +20,7 @@
 
 <?php if (isset($_SESSION['user'])): ?>
     <form method="get" action="index.php">
-        <input type="hidden" name="action" value="ajouter_article_form">
+        <input type="hidden" name="action" value="new_article_form">
         <button type="submit">Ajouter un nouvel article</button>
     </form>
 <?php endif; ?>

@@ -1,5 +1,5 @@
 <h2>Ajouter un nouvel article</h2>
-<form action="index.php?action=ajouter_article" method="post" class="add-article-form" enctype="multipart/form-data">
+<form action="index.php?action=add_article" method="post" class="add-article-form" enctype="multipart/form-data">
     <label for="title">Titre :</label>
     <input type="text" id="title" name="title" class="title-editor"><br>
     <label for="content">Contenu :</label>
