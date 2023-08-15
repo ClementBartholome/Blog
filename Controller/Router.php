@@ -64,7 +64,21 @@ class Router {
 
                 else if ($_GET['action'] == 'loginform') {
                     $this->ctrlhome->loginPage();
-                }                
+                }     
+                  
+                else if ($_GET['action'] == 'login') {
+                    $controllerLogin = new ControllerLogin();
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $login = $this->getParametre($_POST, 'login');
+                        $password = $this->getParametre($_POST, 'password');
+                        $controllerLogin->login($login, $password);
+                    } else {
+                        $controllerLogin->loginPage();
+                    }
+                } else if ($_GET['action'] == 'logout') {
+                    $controllerLogin = new ControllerLogin();
+                    $controllerLogin->logout();
+                }
                 
                 else
                     throw new Exception("Action non valide");

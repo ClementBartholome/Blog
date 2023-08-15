@@ -3,14 +3,15 @@
 <article>
     <div class="article-header">
         <h1 class="titreArticle"><?= $article['title'] ?></h1>
+        <?php if (isset($_SESSION['user'])): ?>
+            <form method="post" action="index.php?action=modifier_article_form&id=<?= $article['id'] ?>">
+                <button type="submit">Modifier cet article</button>
+            </form>
 
-        <form method="post" action="index.php?action=modifier_article_form&id=<?= $article['id'] ?>">
-            <button type="submit">Modifier cet article</button>
-        </form>
-
-        <form method="post" action="index.php?action=supprimer_article&id=<?= $article['id'] ?>">
-            <button type="submit">Supprimer cet article</button>
-        </form>
+            <form method="post" action="index.php?action=supprimer_article&id=<?= $article['id'] ?>">
+                <button type="submit">Supprimer cet article</button>
+            </form>
+        <?php endif; ?>
     </div>
     <time><?= $article['date'] ?></time>
     <div class="article-content">
@@ -32,10 +33,10 @@
 <hr />
 
 <form method="post" action="index.php?action=comment" class="comment-form">
-    <input id="auteur" name="auteur" type="text" placeholder="Votre pseudo" 
+    <input id="author" name="author" type="text" placeholder="Votre pseudo" 
            required /><br />
-    <textarea id="txtCommentaire" name="contenu" rows="4" 
+    <textarea id="txtCommentaire" name="content" rows="4" 
               placeholder="Votre commentaire" required></textarea><br />
     <input type="hidden" name="id" value="<?= $article['id'] ?>" />
-    <button type="submit" value="Commenter">Commenter</button>
+    <button type="submit">Commenter</button>
 </form>

@@ -18,7 +18,9 @@
     <hr />
 <?php endforeach; ?>
 
-<form method="get" action="index.php">
-    <input type="hidden" name="action" value="ajouter_article_form">
-    <button type="submit">Ajouter un nouvel article</button>
-</form>
+<?php if (isset($_SESSION['user'])): ?>
+    <form method="get" action="index.php">
+        <input type="hidden" name="action" value="ajouter_article_form">
+        <button type="submit">Ajouter un nouvel article</button>
+    </form>
+<?php endif; ?>

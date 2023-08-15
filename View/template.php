@@ -12,7 +12,11 @@
                     <h1 class="blog-title">Mon Blog</h1>
                 </a>
                 <p class="blog-welcome">Bienvenue sur ce blog.</p>
-                <a href="index.php?action=loginform" class="btn-connexion">Se connecter</a>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <a href="index.php?action=logout" class="btn-connexion">Se déconnecter</a>
+                <?php else: ?>
+                    <a href="index.php?action=loginform" class="btn-connexion">Se connecter</a>
+                <?php endif; ?>
             </header>
             <div id="contenu">
                 <?= $content ?>

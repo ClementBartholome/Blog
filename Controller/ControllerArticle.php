@@ -23,12 +23,12 @@ class ControllerArticle {
 
     public function Comment($author, $content, $idArticle) {
         // Sauvegarde du comment
-        $this->comment->ajouterComment($author, $content, $idArticle);
+        $this->comment->addComment($author, $content, $idArticle);
         // Actualisation de l'affichage du article
         $this->article($idArticle);
     }
 
-    public function newarticleForm() {
+    public function newArticleForm() {
         $view = new View("NewArticle");
         $view->generate(array('content' => ''));
     }
@@ -60,10 +60,16 @@ class ControllerArticle {
     
 
     public function deletearticle($idArticle) {
+        $article = $this->article->getArticle($idArticle);
         $this->article->deletearticle($idArticle);
+        $imagePath = './images/' . basename($article['image']);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
         header("Location: index.php");
         exit();
     }
+    
 
     public function modifyArticleForm($idArticle) {
         $article = $this->article->getArticle($idArticle);

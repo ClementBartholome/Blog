@@ -35,6 +35,11 @@ textarea {
   background: #007bff;
 }
 
+button,
+input {
+  width: fit-content;
+}
+
 footer {
   margin: 20px 0;
   text-align: center;
@@ -92,7 +97,9 @@ header {
 
 .article-content img {
   width: 100%;
+  max-height: 400px;
   margin-top: 16px;
+  object-fit: cover;
 }
 
 #content {
@@ -201,4 +208,14 @@ button:hover {
 
 .date {
   color: #999;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.error-message {
+  color: #f00;
 }
