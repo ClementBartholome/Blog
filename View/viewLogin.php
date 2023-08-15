@@ -1,6 +1,5 @@
-<?php $title = "Connexion"; // Titre de la page ?>
+<?php $title = "Connexion"; ?>
 
-<!-- Formulaire de connexion -->
 <form action="index.php?action=login" method="post" class="login-form">
     <div>
         <label for="login" class="form-label">Identifiant</label>

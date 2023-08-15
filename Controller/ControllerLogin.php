@@ -15,7 +15,7 @@ class ControllerLogin {
         $view->generate([]);
     }
 
-    public function login($login, $password) {
+    public function login(string $login, string $password): void {
         $user = $this->user->authenticate($login, $password);
     
         if ($user) {

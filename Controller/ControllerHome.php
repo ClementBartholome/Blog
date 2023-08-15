@@ -11,7 +11,6 @@ class ControllerHome {
     $this->article = new Article();
   }
 
-  // Affiche la liste de tous les articles du blog
   public function home() {
     $articles = $this->article->getArticles();
     $view = new View("Home");

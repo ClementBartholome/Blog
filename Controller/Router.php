@@ -16,7 +16,6 @@ class Router {
         $this->ctrllogin = new ControllerLogin();
     }
 
-    // Route une requête entrante : exécution l'action associée
     public function routerRequest() {
         try {
             if (isset($_GET['action'])) {
@@ -66,24 +65,22 @@ class Router {
                 }     
                   
                 else if ($_GET['action'] == 'login') {
-                    $controllerLogin = new ControllerLogin();
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $login = $this->getParametre($_POST, 'login');
                         $password = $this->getParametre($_POST, 'password');
-                        $controllerLogin->login($login, $password);
+                        $this->ctrllogin->login($login, $password);
                     } else {
-                        $controllerLogin->loginPage();
+                        $this->ctrllogin->loginPage();
                     }
                 } else if ($_GET['action'] == 'logout') {
-                    $controllerLogin = new ControllerLogin();
-                    $controllerLogin->logout();
+                    $this->ctrllogin->logout();
                 }
                 
                 else
                     throw new Exception("Action non valide");
             }
             
-            else {  // aucune action définie : affichage de l'home
+            else {  // no action : display home
                 $this->ctrlhome->home();
             }
         }
@@ -97,7 +94,7 @@ class Router {
         $vue->generate(array('msgError' => $msgError));
     }
 
-    // Recherche un paramètre dans un tableau
+    // Search the value of a parameter in a table
     private function getParametre($table, $name) {
         if (isset($table[$name])) {
             return $table[$name];
@@ -105,5 +102,4 @@ class Router {
         else
             throw new Exception("Paramètre '$name' absent");
     }
-
 }

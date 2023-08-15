@@ -6,32 +6,32 @@ require_once 'View/View.php';
 
 class ControllerArticle {
 
-    private $article;
-    private $comment;
+    private Article $article;
+    private Comment $comment;
 
     public function __construct() {
         $this->article = new Article();
         $this->comment = new Comment();
     }
 
-    public function article($idArticle) {
+    public function article(int $idArticle): void {
         $article = $this->article->getArticle($idArticle);
         $comments = $this->comment->getComments($idArticle);
         $view = new View("article");
-        $view->generate(array('article' => $article, 'comments' => $comments));
+        $view->generate(['article' => $article, 'comments' => $comments]);
     }
 
-    public function Comment($author, $content, $idArticle) {
+    public function Comment(string $author, string $content, int $idArticle): void {
         $this->comment->addComment($author, $content, $idArticle);
         $this->article($idArticle);
     }
 
-    public function newArticleForm() {
+    public function newArticleForm(): void {
         $view = new View("NewArticle");
-        $view->generate(array('content' => ''));
+        $view->generate(['content' => '']);
     }
     
-    public function addArticle($title, $content) {
+    public function addArticle(string $title, string $content): void {
         // Get the sent file
         $image = isset($_FILES['image']) ? $_FILES['image'] : null;
     
@@ -54,9 +54,9 @@ class ControllerArticle {
     }
     
 
-    public function deletearticle($idArticle) {
+    public function deleteArticle(int $idArticle): void {
         $article = $this->article->getArticle($idArticle);
-        $this->article->deletearticle($idArticle);
+        $this->article->deleteArticle($idArticle);
         $imagePath = './images/' . basename($article['image']);
         if (file_exists($imagePath)) {
             unlink($imagePath);
@@ -66,13 +66,13 @@ class ControllerArticle {
     }
     
 
-    public function modifyArticleForm($idArticle) {
+    public function modifyArticleForm(int $idArticle): void {
         $article = $this->article->getArticle($idArticle);
         $view = new View("ModifyArticle");
-        $view->generate(array('article' => $article));
+        $view->generate(['article' => $article]);
     }
     
-    public function modifyArticle($idArticle, $title, $content) {
+    public function modifyArticle(int $idArticle, string $title, string $content): void {
         $this->article->modifyArticle($idArticle, $title, $content);
         header("Location: index.php?action=article&id=$idArticle");
         exit();
