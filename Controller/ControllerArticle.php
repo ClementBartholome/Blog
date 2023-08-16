@@ -1,21 +1,21 @@
 <?php
 
-require_once 'Model/Article.php';
+require_once 'Model/ArticleManager.php';
 require_once 'Model/Comment.php';
 require_once 'View/View.php';
 
 class ControllerArticle {
 
-    private Article $article;
+    private ArticleManager $articleManager;
     private Comment $comment;
 
     public function __construct() {
-        $this->article = new Article();
+        $this->articleManager = new ArticleManager();
         $this->comment = new Comment();
     }
 
     public function article(int $idArticle): void {
-        $article = $this->article->getArticle($idArticle);
+        $article = $this->articleManager->getArticle($idArticle);
         $comments = $this->comment->getComments($idArticle);
         $view = new View("article");
         $view->generate(['article' => $article, 'comments' => $comments]);
@@ -42,11 +42,11 @@ class ControllerArticle {
     
             // Check if the file has been uploaded
             if (move_uploaded_file($image['tmp_name'], $uploadFile)) {
-                $this->article->addArticle($title, $content, $uploadFile);
+                $this->articleManager->addArticle($title, $content, $uploadFile);
             }
         } else {
             // No image sent, add the article without image
-            $this->article->addArticle($title, $content, null);
+            $this->articleManager->addArticle($title, $content, null);
         }
     
         header("Location: index.php");
@@ -54,9 +54,9 @@ class ControllerArticle {
     }
     
     public function deleteArticle(int $idArticle): void {
-        $article = $this->article->getArticle($idArticle);
-        $this->article->deleteArticle($idArticle);
-        $imagePath = './images/' . basename($article['image']);
+        $article = $this->articleManager->getArticle($idArticle);
+        $this->articleManager->deleteArticle($idArticle);
+        $imagePath = './images/' . basename($article->getImage());
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
@@ -66,13 +66,13 @@ class ControllerArticle {
     
 
     public function modifyArticleForm(int $idArticle): void {
-        $article = $this->article->getArticle($idArticle);
+        $article = $this->articleManager->getArticle($idArticle);
         $view = new View("ModifyArticle");
         $view->generate(['article' => $article]);
     }
     
     public function modifyArticle(int $idArticle, string $title, string $content): void {
-        $this->article->modifyArticle($idArticle, $title, $content);
+        $this->articleManager->modifyArticle($idArticle, $title, $content);
         header("Location: index.php?action=article&id=$idArticle");
         exit();
     }

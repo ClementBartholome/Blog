@@ -1,20 +1,20 @@
 <?php
 
-require_once 'Model/Article.php';
+require_once 'Model/ArticleManager.php';
 require_once 'View/View.php';
 
 class ControllerHome {
 
-  private $article;
+  private ArticleManager $articleManager;
 
   public function __construct() {
-    $this->article = new Article();
+    $this->articleManager = new ArticleManager();
   }
 
   public function home() {
-    $articles = $this->article->getArticles();
+    $articles = $this->articleManager->getArticles();
     $view = new View("Home");
-    $view->generate(array('articles' => $articles));
+    $view->generate(['articles' => $articles]);
   }
 
   public function loginPage() {

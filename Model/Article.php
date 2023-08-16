@@ -1,42 +1,52 @@
-<?php
+<?php 
 
-require_once 'Model.php';
+require_once 'AbstractEntity.php';
 
-class Article extends Model {
+class Article extends AbstractEntity {
+    private $id;
+    private $date;
+    private $title;
+    private $content;
+    private $image;
 
-    public function getArticles(): PDOStatement {
-        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
-                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image'
-                . ' FROM T_article'
-                . ' ORDER BY BIL_ID DESC';
-        $articles = $this->executeRequest($sql);
-        return $articles;
+    public function getId(): int {
+        return $this->id;
     }
 
-    public function getArticle(int $idArticle): array {
-        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
-                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image'
-                . ' FROM T_article'
-                . ' WHERE BIL_ID=?';
-        $article = $this->executeRequest($sql, [$idArticle]);
-        if ($article->rowCount() > 0)
-            return $article->fetch(); 
-        else
-            throw new Exception("Aucun article ne correspond à l'identifiant '$idArticle'");
+    public function setId(int $id): void {
+        $this->id = $id;
     }
 
-    public function addArticle(string $title, string $content, ?string $image): void {
-        $sql = 'INSERT INTO T_article (BIL_TITRE, BIL_CONTENU, BIL_DATE, BIL_IMAGE) VALUES (?, ?, NOW(), ?)';
-        $this->executeRequest($sql, [$title, $content, $image]);
+    public function getDate(): string {
+        return $this->formatDate($this->date);
     }
 
-    public function deleteArticle(int $idArticle): void {
-        $sql = 'DELETE FROM T_article WHERE BIL_ID=?';
-        $this->executeRequest($sql, [$idArticle]);
+    public function setDate(string $date): void {
+        $this->date = $date;
     }
 
-    public function modifyArticle(int $idArticle, string $title, string $content): void {
-        $sql = 'UPDATE T_article SET BIL_TITRE=?, BIL_CONTENU=? WHERE BIL_ID=?';
-        $this->executeRequest($sql, [$title, $content, $idArticle]);
+    public function getTitle(): string {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): void {
+        $this->title = $title;
+    }
+
+    public function getContent(): string {
+        return $this->content;
+    }
+
+    public function setContent(string $content): void {
+        $this->content = $content;
+    }
+
+    public function getImage(): ?string {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): void {
+        $this->image = $image;
     }
 }
+
