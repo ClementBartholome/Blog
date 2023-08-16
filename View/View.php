@@ -14,14 +14,10 @@ class View {
     public function generate(array $data): void {
         // Generate the view using provided data
         $content = $this->generateFile($this->file, $data);
-        
-        // Get the root web directory from the configuration
-        $racineWeb = Configuration::get("racineWeb", "/");
-        
+                
         // Generate the complete view by including the template and passing necessary data
         $view = $this->generateFile('View/template.php',
-            array('title' => $this->title, 'content' => $content,
-                  'racineWeb' => $racineWeb));
+            array('title' => $this->title, 'content' => $content,));
         echo $view;
     }
 

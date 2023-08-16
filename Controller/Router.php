@@ -25,7 +25,7 @@ class Router {
                         $this->ctrlarticle->article($idArticle);
                     }
                     else
-                        throw new Exception("Identifiant de article non valide");
+                        throw new Exception("Identifiant d'article non valide");
                 }
                 else if ($_GET['action'] == 'comment') {
                     $author = $this->getParametre($_POST, 'author');
