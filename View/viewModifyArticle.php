@@ -1,5 +1,5 @@
 <h2>Modifier l'article</h2>
-<form action="index.php?action=modifier_article" method="post" class="add-article-form">
+<form action="index.php?action=modify_article" method="post" class="add-article-form">
     <label for="title">Titre :</label>
     <input type="text" id="title" name="title" class="title-editor" value="<?= htmlspecialchars($article['title']) ?>"><br>
     <label for="content">Contenu :</label>

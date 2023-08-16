@@ -31,7 +31,7 @@ class Router {
                     $author = $this->getParametre($_POST, 'author');
                     $content = $this->getParametre($_POST, 'content');
                     $idArticle = $this->getParametre($_POST, 'id');
-                    $this->ctrlarticle->Comment($author, $content, $idArticle);
+                    $this->ctrlarticle->addComment($author, $content, $idArticle);
                 }
 
                 else if ($_GET['action'] == 'new_article_form') {
@@ -44,16 +44,16 @@ class Router {
                     $this->ctrlarticle->addArticle($title, $content);
                 } 
                 
-                else if ($_GET['action'] == 'modifier_article_form') {
+                else if ($_GET['action'] == 'modify_article_form') {
                     $idArticle = $this->getParametre($_GET, 'id');
                     $this->ctrlarticle->modifyArticleForm($idArticle);
                 } 
-                else if ($_GET['action'] == 'supprimer_article') {
+                else if ($_GET['action'] == 'delete_article') {
                     $idArticle = $this->getParametre($_GET, 'id');
                     $this->ctrlarticle->deleteArticle($idArticle);
                 }
                 
-                else if ($_GET['action'] == 'modifier_article') {
+                else if ($_GET['action'] == 'modify_article') {
                     $idArticle = $this->getParametre($_POST, 'idArticle');
                     $title = $this->getParametre($_POST, 'title');
                     $content = $this->getParametre($_POST, 'content');

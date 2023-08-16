@@ -21,7 +21,7 @@ class ControllerArticle {
         $view->generate(['article' => $article, 'comments' => $comments]);
     }
 
-    public function Comment(string $author, string $content, int $idArticle): void {
+    public function addComment(string $author, string $content, int $idArticle): void {
         $this->comment->addComment($author, $content, $idArticle);
         $this->article($idArticle);
     }
@@ -53,7 +53,6 @@ class ControllerArticle {
         exit();
     }
     
-
     public function deleteArticle(int $idArticle): void {
         $article = $this->article->getArticle($idArticle);
         $this->article->deleteArticle($idArticle);

@@ -4,11 +4,11 @@
     <div class="article-header">
         <h1 class="titreArticle"><?= $article['title'] ?></h1>
         <?php if (isset($_SESSION['user'])): ?>
-            <form method="post" action="index.php?action=modifier_article_form&id=<?= $article['id'] ?>">
+            <form method="post" action="index.php?action=modify_article_form&id=<?= $article['id'] ?>">
                 <button type="submit">Modifier cet article</button>
             </form>
 
-            <form method="post" action="index.php?action=supprimer_article&id=<?= $article['id'] ?>">
+            <form method="post" action="index.php?action=delete_article&id=<?= $article['id'] ?>">
                 <button type="submit">Supprimer cet article</button>
             </form>
         <?php endif; ?>
