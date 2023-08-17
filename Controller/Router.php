@@ -81,6 +81,11 @@ class Router {
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                     $this->ctrlhome->home($page);
                 }
+
+                else if ($_GET['action'] == 'category') {
+                    $category = isset($_GET['category']) ? urldecode($_GET['category']) : '';
+                    $this->ctrlarticle->articlesByCategory($category);
+                }
                 
                 else
                     throw new Exception("Action non valide");

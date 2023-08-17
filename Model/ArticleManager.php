@@ -53,6 +53,25 @@ class ArticleManager extends Model {
         return (int) $result->fetchColumn();
     }
 
+    public function getArticlesByCategory(string $category): array {
+        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
+                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image, BIL_CATEGORIE AS category'
+                . ' FROM T_article'
+                . ' WHERE BIL_CATEGORIE = ?'
+                . ' ORDER BY BIL_ID DESC';
+
+        $articlesData = $this->executeRequest($sql, [$category]);
+
+        $articles = [];
+        foreach ($articlesData as $articleData) {
+            $article = new Article();
+            $article->hydrate($articleData);
+            $articles[] = $article;
+        }
+
+        return $articles;
+    }
+
     public function getArticle(int $idArticle): Article {
         $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
                 . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image, BIL_CATEGORIE AS category'

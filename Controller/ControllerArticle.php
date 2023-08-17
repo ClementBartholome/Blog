@@ -21,6 +21,12 @@ class ControllerArticle {
         $view->generate(['article' => $article, 'comments' => $comments]);
     }
 
+    public function articlesByCategory(string $category): void {
+        $articles = $this->articleManager->getArticlesByCategory($category);
+        $view = new View("ArticlesByCategory");
+        $view->generate(['articles' => $articles, 'category' => $category]);
+    }
+
     public function addComment(string $author, string $content, int $idArticle): void {
         $this->comment->addComment($author, $content, $idArticle);
         $this->article($idArticle);
