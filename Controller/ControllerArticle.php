@@ -31,24 +31,24 @@ class ControllerArticle {
         $view->generate(['content' => '']);
     }
     
-    public function addArticle(string $title, string $content): void {
+    public function addArticle(string $title, string $content, string $category): void {
         // Get the sent file
         $image = isset($_FILES['image']) ? $_FILES['image'] : null;
-    
+
         // Check if the file is an image
         if (!empty($image['name'])) {
             $uploadDir = './images/';
             $uploadFile = $uploadDir . basename($image['name']);
-    
+
             // Check if the file has been uploaded
             if (move_uploaded_file($image['tmp_name'], $uploadFile)) {
-                $this->articleManager->addArticle($title, $content, $uploadFile);
+                $this->articleManager->addArticle($title, $content, $uploadFile, $category);
             }
         } else {
             // No image sent, add the article without image
-            $this->articleManager->addArticle($title, $content, null);
+            $this->articleManager->addArticle($title, $content, null, $category);
         }
-    
+
         header("Location: index.php");
         exit();
     }
@@ -72,11 +72,11 @@ class ControllerArticle {
     }
     
     public function modifyArticle(int $idArticle, string $title, string $content): void {
-    $article = $this->articleManager->getArticle($idArticle);
-    $article->setTitle($title);
-    $article->setContent($content);
-    $this->articleManager->modifyArticle($article);
-    header("Location: index.php?action=article&id=$idArticle");
-    exit();
-}
+        $article = $this->articleManager->getArticle($idArticle);
+        $article->setTitle($title);
+        $article->setContent($content);
+        $this->articleManager->modifyArticle($article);
+        header("Location: index.php?action=article&id=$idArticle");
+        exit();
+    }
 }

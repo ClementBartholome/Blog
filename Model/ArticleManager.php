@@ -7,29 +7,29 @@ require_once 'Article.php';
 
 class ArticleManager extends Model {
 
-    public function getLatestArticles(int $limit = 2, int $offset = 0): array {
-        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
-                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image'
-                . ' FROM T_article'
-                . ' ORDER BY BIL_ID DESC'
-                . ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        $articlesData = $this->executeRequest($sql);
+    // public function getLatestArticles(int $limit = 2, int $offset = 0): array {
+    //     $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
+    //             . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image, BIL_CATEGORIE AS category'
+    //             . ' FROM T_article'
+    //             . ' ORDER BY BIL_ID DESC'
+    //             . ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+    //     $articlesData = $this->executeRequest($sql);
 
-        $articles = [];
-        foreach ($articlesData as $articleData) {
-            $article = new Article();
-            $article->hydrate($articleData);
-            $articles[] = $article;
-        }
-
-        return $articles;
-    }
+    //     $articles = [];
+    //     foreach ($articlesData as $articleData) {
+    //         $article = new Article();
+    //         $article->hydrate($articleData);
+    //         $articles[] = $article;
+    //     }
+    
+    //     return $articles;
+    // }
 
     public function getArticlesByPage(int $page, int $articlesPerPage): array {
         $offset = ($page - 1) * $articlesPerPage;
         
         $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
-                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image'
+                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image, BIL_CATEGORIE AS category'
                 . ' FROM T_article'
                 . ' ORDER BY BIL_ID DESC'
                 . ' LIMIT ' . $articlesPerPage
@@ -55,7 +55,7 @@ class ArticleManager extends Model {
 
     public function getArticle(int $idArticle): Article {
         $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
-                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image'
+                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image, BIL_CATEGORIE AS category'
                 . ' FROM T_article'
                 . ' WHERE BIL_ID=?';
         $articleData = $this->executeRequest($sql, [$idArticle]);
@@ -68,9 +68,9 @@ class ArticleManager extends Model {
         }
     }
 
-    public function addArticle(string $title, string $content, ?string $image): void {
-        $sql = 'INSERT INTO T_article (BIL_TITRE, BIL_CONTENU, BIL_DATE, BIL_IMAGE) VALUES (?, ?, NOW(), ?)';
-        $this->executeRequest($sql, [$title, $content, $image]);
+    public function addArticle(string $title, string $content, ?string $image, string $category): void {
+        $sql = 'INSERT INTO T_article (BIL_TITRE, BIL_CONTENU, BIL_DATE, BIL_IMAGE, BIL_CATEGORIE) VALUES (?, ?, NOW(), ?, ?)';
+        $this->executeRequest($sql, [$title, $content, $image, $category]);
     }
 
     public function deleteArticle(int $idArticle): void {

@@ -6,6 +6,8 @@
             <a href="<?= "index.php?action=article&id=" . $article->getId() ?>">
                 <h1 class="titrearticle"><?= $article->getTitle() ?></h1>
             </a>
+            <p>Catégorie <span class="category-tag"><?= $article->getCategory() ?></span></p>
+            
             <time class="date"><?= $article->getDate() ?></time>
         </div>
         <div class="article-content-preview">

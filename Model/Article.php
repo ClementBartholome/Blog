@@ -9,11 +9,22 @@ class Article extends AbstractEntity {
     private $content;
     private $image;
 
+    private $category;
+
     public function hydrate(array $data) {
         parent::hydrate($data);
         if (isset($data['date'])) {
             $this->date = $this->formatDate($data['date']);
         }
+        $this->category = $data['category'] ?? null;
+    }
+
+    public function setCategory(string $category): void {
+        $this->category = $category;
+    }
+
+    public function getCategory(): string {
+        return $this->category ?? '';
     }
 
     public function getId(): int {

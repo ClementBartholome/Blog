@@ -226,3 +226,11 @@ button:hover {
 .next-page {
   margin-left: auto;
 }
+
+.category-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: #3498db;
+  color: #ffffff;
+  border-radius: 4px;
+}

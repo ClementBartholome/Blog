@@ -14,5 +14,7 @@
     <br>
     <label for="image">Image de couverture :</label>
     <input type="file" id="image" name="image"><br>
+    <label for="category">Catégorie :</label><br />
+    <input type="text" id="category" name="category" required /><br />
     <button type="submit">Ajouter l'article</button>
 </form>
