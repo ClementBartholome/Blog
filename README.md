@@ -5,6 +5,9 @@ Ce projet est basé sur le [code fourni](https://github.com/bpesquet/MonBlog/tre
 À cette base, j'ai ajouté : 
 
 - une fonctionnalité d'authentification
-- la possibilité pour l'utilisateur connecté d'ajouter / supprimer / modifier un article.
+- la possibilité pour l'utilisateur connecté d'ajouter / supprimer / modifier un article
+- une fonctionnalité de pagination (deux articles affichés par page)
+- une fonctionnalité de filtrage des articles par catégorie
+
 
 
