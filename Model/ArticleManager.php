@@ -7,11 +7,12 @@ require_once 'Article.php';
 
 class ArticleManager extends Model {
 
-    public function getArticles(): array {
+    public function getLatestArticles(int $limit = 2, int $offset = 0): array {
         $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
                 . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image'
                 . ' FROM T_article'
-                . ' ORDER BY BIL_ID DESC';
+                . ' ORDER BY BIL_ID DESC'
+                . ' LIMIT ' . $limit . ' OFFSET ' . $offset;
         $articlesData = $this->executeRequest($sql);
 
         $articles = [];
@@ -22,6 +23,34 @@ class ArticleManager extends Model {
         }
 
         return $articles;
+    }
+
+    public function getArticlesByPage(int $page, int $articlesPerPage): array {
+        $offset = ($page - 1) * $articlesPerPage;
+        
+        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
+                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image'
+                . ' FROM T_article'
+                . ' ORDER BY BIL_ID DESC'
+                . ' LIMIT ' . $articlesPerPage
+                . ' OFFSET ' . $offset;
+    
+        $articlesData = $this->executeRequest($sql);
+    
+        $articles = [];
+        foreach ($articlesData as $articleData) {
+            $article = new Article();
+            $article->hydrate($articleData);
+            $articles[] = $article;
+        }
+    
+        return $articles;
+    }
+
+    public function getTotalArticles(): int {
+        $sql = 'SELECT COUNT(*) FROM T_article';
+        $result = $this->executeRequest($sql);
+        return (int) $result->fetchColumn();
     }
 
     public function getArticle(int $idArticle): Article {

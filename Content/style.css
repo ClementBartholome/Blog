@@ -100,6 +100,7 @@ header {
   max-height: 400px;
   margin-top: 16px;
   object-fit: cover;
+  box-shadow: 2px 2px 10px 2px #000000;
 }
 
 #titreBlog,
@@ -214,4 +215,14 @@ button:hover {
 
 .error-message {
   color: #f00;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.next-page {
+  margin-left: auto;
 }

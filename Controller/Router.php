@@ -75,6 +75,11 @@ class Router {
                 } else if ($_GET['action'] == 'logout') {
                     $this->ctrllogin->logout();
                 }
+
+                else if ($_GET['action'] == 'home') {
+                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                    $this->ctrlhome->home($page);
+                }
                 
                 else
                     throw new Exception("Action non valide");

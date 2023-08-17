@@ -18,6 +18,19 @@
     <hr />
 <?php endforeach; ?>
 
+<div class="pagination">
+
+<?php if ($currentPage > 1): ?>
+    <a href="index.php?action=home&page=<?= $currentPage - 1 ?>">Précédent</a>
+<?php endif; ?>
+
+<!-- Afficher le lien vers la page suivante -->
+<?php if ($currentPage < $totalPages): ?>
+    <a href="index.php?action=home&page=<?= $currentPage + 1 ?>" class="next-page">Suivant</a>
+<?php endif; ?>
+
+</div>
+
 <?php if (isset($_SESSION['user'])): ?>
     <form method="get" action="index.php">
         <input type="hidden" name="action" value="new_article_form">
