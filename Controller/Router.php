@@ -41,7 +41,8 @@ class Router {
                 else if ($_GET['action'] == 'add_article') {
                     $title = $this->getParametre($_POST, 'title');
                     $content = $this->getParametre($_POST, 'content');
-                    $this->ctrlarticle->addArticle($title, $content);
+                    $category = $this->getParametre($_POST, 'category');
+                    $this->ctrlarticle->addArticle($title, $content, $category);
                 } 
                 
                 else if ($_GET['action'] == 'modify_article_form') {
@@ -74,6 +75,16 @@ class Router {
                     }
                 } else if ($_GET['action'] == 'logout') {
                     $this->ctrllogin->logout();
+                }
+
+                else if ($_GET['action'] == 'home') {
+                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                    $this->ctrlhome->home($page);
+                }
+
+                else if ($_GET['action'] == 'category') {
+                    $category = isset($_GET['category']) ? urldecode($_GET['category']) : '';
+                    $this->ctrlarticle->articlesByCategory($category);
                 }
                 
                 else

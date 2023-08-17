@@ -9,6 +9,7 @@
         <label for="password" class="form-label">Mot de passe</label>
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
+    <p>Compte de test : test (identifiant) / 12345 (mot de passe)</p>
     <?php if (isset($error)): ?>
         <p class="error-message"><?= $error ?></p>
     <?php endif; ?>
