@@ -72,8 +72,11 @@ class ControllerArticle {
     }
     
     public function modifyArticle(int $idArticle, string $title, string $content): void {
-        $this->articleManager->modifyArticle($idArticle, $title, $content);
-        header("Location: index.php?action=article&id=$idArticle");
-        exit();
-    }
+    $article = $this->articleManager->getArticle($idArticle);
+    $article->setTitle($title);
+    $article->setContent($content);
+    $this->articleManager->modifyArticle($article);
+    header("Location: index.php?action=article&id=$idArticle");
+    exit();
+}
 }

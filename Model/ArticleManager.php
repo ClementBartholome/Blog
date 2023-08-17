@@ -13,19 +13,14 @@ class ArticleManager extends Model {
                 . ' FROM T_article'
                 . ' ORDER BY BIL_ID DESC';
         $articlesData = $this->executeRequest($sql);
-        
+
         $articles = [];
         foreach ($articlesData as $articleData) {
             $article = new Article();
-            $article->setId($articleData['id']);
-            $article->setDate($articleData['date']);
-            $article->setTitle($articleData['title']);
-            $article->setContent($articleData['content']);
-            $article->setImage($articleData['image']);
-            
+            $article->hydrate($articleData);
             $articles[] = $article;
         }
-        
+
         return $articles;
     }
 
@@ -35,16 +30,9 @@ class ArticleManager extends Model {
                 . ' FROM T_article'
                 . ' WHERE BIL_ID=?';
         $articleData = $this->executeRequest($sql, [$idArticle]);
-        
         if ($articleData->rowCount() > 0) {
-            $articleRow = $articleData->fetch(PDO::FETCH_ASSOC);
             $article = new Article();
-            $article->setId($articleRow['id']);
-            $article->setDate($articleRow['date']);
-            $article->setTitle($articleRow['title']);
-            $article->setContent($articleRow['content']);
-            $article->setImage($articleRow['image']);
-            
+            $article->hydrate($articleData->fetch());
             return $article;
         } else {
             throw new Exception("Aucun article ne correspond à l'identifiant '$idArticle'");
@@ -61,8 +49,8 @@ class ArticleManager extends Model {
         $this->executeRequest($sql, [$idArticle]);
     }
 
-    public function modifyArticle(int $idArticle, string $title, string $content): void {
+    public function modifyArticle(Article $article): void {
         $sql = 'UPDATE T_article SET BIL_TITRE=?, BIL_CONTENU=? WHERE BIL_ID=?';
-        $this->executeRequest($sql, [$title, $content, $idArticle]);
+        $this->executeRequest($sql, [$article->getTitle(), $article->getContent(), $article->getId()]);
     }
 }
