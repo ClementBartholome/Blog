@@ -14,20 +14,24 @@ class ControllerHome {
   public function home($page = 1): void {
     $articlesPerPage = 2;
 
+    // Retrieve articles for the specified page
     $articles = $this->articleManager->getArticlesByPage($page, $articlesPerPage);
 
-    // Calcul du nombre total d'articles
+   
+    // Get the total number of articles
     $totalArticles = $this->articleManager->getTotalArticles();
     
-    // Calcul du nombre total de pages
+    // Calculate the total number of pages needed for pagination
     $totalPages = ceil($totalArticles / $articlesPerPage);
 
     $view = new View("Home");
+
+    // Generate the view with necessary data
     $view->generate([
-        'articles' => $articles,
-        'currentPage' => $page,
-        'totalPages' => $totalPages  // Passer le nombre total de pages à la vue
-    ]);
+      'articles' => $articles,
+      'currentPage' => $page,
+      'totalPages' => $totalPages 
+  ]);
 }
 
   public function loginPage() {
