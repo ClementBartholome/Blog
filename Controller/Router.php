@@ -19,86 +19,92 @@ class Router {
     public function routerRequest() {
         try {
             if (isset($_GET['action'])) {
-                if ($_GET['action'] == 'article') {
-                    $idArticle = intval($this->getParametre($_GET, 'id'));
-                    if ($idArticle != 0) {
-                        $this->ctrlarticle->article($idArticle);
-                    }
-                    else
-                        throw new Exception("Identifiant d'article non valide");
-                }
-                else if ($_GET['action'] == 'comment') {
-                    $author = $this->getParametre($_POST, 'author');
-                    $content = $this->getParametre($_POST, 'content');
-                    $idArticle = $this->getParametre($_POST, 'id');
-                    $this->ctrlarticle->addComment($author, $content, $idArticle);
-                }
-
-                else if ($_GET['action'] == 'new_article_form') {
-                    $this->ctrlarticle->newArticleForm();
-                } 
+                $action = $_GET['action'];
                 
-                else if ($_GET['action'] == 'add_article') {
-                    $title = $this->getParametre($_POST, 'title');
-                    $content = $this->getParametre($_POST, 'content');
-                    $category = $this->getParametre($_POST, 'category');
-                    $this->ctrlarticle->addArticle($title, $content, $category);
-                } 
-                
-                else if ($_GET['action'] == 'modify_article_form') {
-                    $idArticle = $this->getParametre($_GET, 'id');
-                    $this->ctrlarticle->modifyArticleForm($idArticle);
-                } 
-                else if ($_GET['action'] == 'delete_article') {
-                    $idArticle = $this->getParametre($_GET, 'id');
-                    $this->ctrlarticle->deleteArticle($idArticle);
+                switch ($action) {
+                    case 'article':
+                        $idArticle = intval($this->getParametre($_GET, 'id'));
+                        if ($idArticle != 0) {
+                            $this->ctrlarticle->article($idArticle);
+                        } else {
+                            throw new Exception("Identifiant d'article non valide");
+                        }
+                        break;
+                        
+                    case 'comment':
+                        $author = $this->getParametre($_POST, 'author');
+                        $content = $this->getParametre($_POST, 'content');
+                        $idArticle = $this->getParametre($_POST, 'id');
+                        $this->ctrlarticle->addComment($author, $content, $idArticle);
+                        break;
+    
+                    case 'new_article_form':
+                        $this->ctrlarticle->newArticleForm();
+                        break;
+    
+                    case 'add_article':
+                        $title = $this->getParametre($_POST, 'title');
+                        $content = $this->getParametre($_POST, 'content');
+                        $category = $this->getParametre($_POST, 'category');
+                        $this->ctrlarticle->addArticle($title, $content, $category);
+                        break;
+    
+                    case 'modify_article_form':
+                        $idArticle = $this->getParametre($_GET, 'id');
+                        $this->ctrlarticle->modifyArticleForm($idArticle);
+                        break;
+    
+                    case 'delete_article':
+                        $idArticle = $this->getParametre($_GET, 'id');
+                        $this->ctrlarticle->deleteArticle($idArticle);
+                        break;
+    
+                    case 'modify_article':
+                        $idArticle = $this->getParametre($_POST, 'idArticle');
+                        $title = $this->getParametre($_POST, 'title');
+                        $content = $this->getParametre($_POST, 'content');
+                        $this->ctrlarticle->modifyArticle($idArticle, $title, $content);
+                        break;
+    
+                    case 'loginform':
+                        $this->ctrlhome->loginPage();
+                        break;
+    
+                    case 'login':
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            $login = $this->getParametre($_POST, 'login');
+                            $password = $this->getParametre($_POST, 'password');
+                            $this->ctrllogin->login($login, $password);
+                        } else {
+                            $this->ctrllogin->loginPage();
+                        }
+                        break;
+    
+                    case 'logout':
+                        $this->ctrllogin->logout();
+                        break;
+    
+                    case 'home':
+                        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                        $this->ctrlhome->home($page);
+                        break;
+    
+                    case 'category':
+                        $category = isset($_GET['category']) ? urldecode($_GET['category']) : '';
+                        $this->ctrlarticle->articlesByCategory($category);
+                        break;
+    
+                    default:
+                        throw new Exception("Action non valide");
                 }
-                
-                else if ($_GET['action'] == 'modify_article') {
-                    $idArticle = $this->getParametre($_POST, 'idArticle');
-                    $title = $this->getParametre($_POST, 'title');
-                    $content = $this->getParametre($_POST, 'content');
-                    $this->ctrlarticle->modifyArticle($idArticle, $title, $content);
-                }
-
-                else if ($_GET['action'] == 'loginform') {
-                    $this->ctrlhome->loginPage();
-                }     
-                  
-                else if ($_GET['action'] == 'login') {
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $login = $this->getParametre($_POST, 'login');
-                        $password = $this->getParametre($_POST, 'password');
-                        $this->ctrllogin->login($login, $password);
-                    } else {
-                        $this->ctrllogin->loginPage();
-                    }
-                } else if ($_GET['action'] == 'logout') {
-                    $this->ctrllogin->logout();
-                }
-
-                else if ($_GET['action'] == 'home') {
-                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-                    $this->ctrlhome->home($page);
-                }
-
-                else if ($_GET['action'] == 'category') {
-                    $category = isset($_GET['category']) ? urldecode($_GET['category']) : '';
-                    $this->ctrlarticle->articlesByCategory($category);
-                }
-                
-                else
-                    throw new Exception("Action non valide");
-            }
-            
-            else {  // no action : display home
+            } else {  // no action : display home
                 $this->ctrlhome->home();
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->error($e->getMessage());
         }
     }
+    
 
     private function error($msgError) {
         $vue = new View("Error");
