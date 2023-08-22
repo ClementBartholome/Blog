@@ -7,6 +7,31 @@ require_once 'Article.php';
 
 class ArticleManager extends Model {
 
+    public function getArticle(int $idArticle): Article {
+        // SQL query to retrieve a single article by its ID
+        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
+                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image, BIL_CATEGORIE AS category'
+                . ' FROM T_article'
+                . ' WHERE BIL_ID=?';
+        
+        // Execute the SQL query with the provided article ID and fetch the article's data
+        $articleData = $this->executeRequest($sql, [$idArticle]);
+        
+        // Check if the query returned any rows
+        if ($articleData->rowCount() > 0) {
+            $article = new Article();
+            
+            // Populate the Article object with data from the fetched row
+            $article->hydrate($articleData->fetch());
+            
+            // Return the populated Article object
+            return $article;
+        } else {
+            // Throw an exception if no article is found with the provided ID
+            throw new Exception("No article found with the ID '$idArticle'");
+        }
+    }
+
     public function getArticlesByPage(int $page, int $articlesPerPage): array {
         // Calculate the offset based on current page and articles per page
         $offset = ($page - 1) * $articlesPerPage;
@@ -59,32 +84,6 @@ class ArticleManager extends Model {
         }
         return $articles;
     }
-
-    public function getArticle(int $idArticle): Article {
-        // SQL query to retrieve a single article by its ID
-        $sql = 'SELECT BIL_ID AS id, BIL_DATE AS date,'
-                . ' BIL_TITRE AS title, BIL_CONTENU AS content, BIL_IMAGE AS image, BIL_CATEGORIE AS category'
-                . ' FROM T_article'
-                . ' WHERE BIL_ID=?';
-        
-        // Execute the SQL query with the provided article ID and fetch the article's data
-        $articleData = $this->executeRequest($sql, [$idArticle]);
-        
-        // Check if the query returned any rows
-        if ($articleData->rowCount() > 0) {
-            $article = new Article();
-            
-            // Populate the Article object with data from the fetched row
-            $article->hydrate($articleData->fetch());
-            
-            // Return the populated Article object
-            return $article;
-        } else {
-            // Throw an exception if no article is found with the provided ID
-            throw new Exception("No article found with the ID '$idArticle'");
-        }
-    }
-
     public function addArticle(string $title, string $content, ?string $image, string $category): void {
         $sql = 'INSERT INTO T_article (BIL_TITRE, BIL_CONTENU, BIL_DATE, BIL_IMAGE, BIL_CATEGORIE) VALUES (?, ?, NOW(), ?, ?)';
         $this->executeRequest($sql, [$title, $content, $image, $category]);
