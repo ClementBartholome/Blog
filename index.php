@@ -2,7 +2,7 @@
 
 session_start();
 
-require 'Controller/Router.php';
+require_once "Config/autoload.php";
 
 $router = new Router();
 $router->routerRequest();
