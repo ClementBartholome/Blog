@@ -1,7 +1,5 @@
 <?php
 
-require_once 'AbstractEntity.php';
-
 class Article extends AbstractEntity {
     private $id;
     private $date;
@@ -11,19 +9,29 @@ class Article extends AbstractEntity {
 
     private $category;
 
-    public function hydrate(array $data) {
-        // Call the parent class's hydrate method to set common properties
-        parent::hydrate($data);
+    // public function hydrate(array $data) {
+    //     // Call the parent class's hydrate method to set common properties
+    //     parent::hydrate($data);
 
-        // Check if 'date' is set in the data array and format it
-        if (isset($data['date'])) {
-            $this->date = $this->formatDate($data['date']);
+    //     // // Check if 'date' is set in the data array and format it
+    //     // if (isset($data['date'])) {
+    //     //     $this->date = $this->formatDate($data['date']);
+    //     // }
+
+    //     // If 'category' key exists in the data array, set category, otherwise set it to null
+    //     $this->category = $data['category'] ?? null;
+    // }
+
+    public function setDate(string | DateTime $date, string $format = "Y-m-d H:i:s") {
+        if (is_string($date)) {
+            $date = DateTime::createFromFormat($format, $date);
         }
-
-        // If 'category' key exists in the data array, set category, otherwise set it to null
-        $this->category = $data['category'] ?? null;
+        $this->date = $date;
     }
 
+    public function getDate(): DateTime {
+        return $this->date;
+    }
 
     public function setCategory(string $category): void {
         $this->category = $category;
@@ -41,10 +49,7 @@ class Article extends AbstractEntity {
         $this->id = $id;
     }
 
-    public function getDate(): string {
-        return $this->date;
-    }
-
+    
     public function setTitle(string $title): void {
         $this->title = $title;
     }

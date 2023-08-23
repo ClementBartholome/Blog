@@ -14,7 +14,7 @@
         <?php endif; ?>
     </div>
     <p>Catégorie <span class="category-tag"><?= $article->getCategory() ?></span></p>
-    <time><?= $article->getDate() ?></time>
+    <time><?= Utils::convertDateToFrenchFormat($article->getDate()) ?></time>
     <div class="article-content">
         <!-- Cover image -->
         <?php if (!empty($article->getImage())): ?>

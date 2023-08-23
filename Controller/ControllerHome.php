@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Model/ArticleManager.php';
-require_once 'View/View.php';
-
 class ControllerHome {
 
   private ArticleManager $articleManager;

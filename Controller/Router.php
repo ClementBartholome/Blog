@@ -1,9 +1,4 @@
 <?php
-
-require_once 'Controller/ControllerHome.php';
-require_once 'Controller/ControllerArticle.php';
-require_once 'Controller/ControllerLogin.php';
-require_once 'View/View.php';
 class Router {
 
     private $ctrlhome;

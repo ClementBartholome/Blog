@@ -8,7 +8,7 @@
             </a>
             <p>Catégorie <a href="index.php?action=category&category=<?= urlencode($article->getCategory()) ?>" class="category-tag"><?= $article->getCategory() ?></a></p>
             
-            <time class="date"><?= $article->getDate() ?></time>
+            <time class="date"><?= Utils::convertDateToFrenchFormat($article->getDate()) ?></time>
         </div>
         <div class="article-content-preview">
             <p class="contenu"><?= mb_strimwidth($article->getContent(), 0, 300, "..."); ?></p>

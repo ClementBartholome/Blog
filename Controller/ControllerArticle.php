@@ -1,9 +1,5 @@
 <?php
 
-require_once 'Model/ArticleManager.php';
-require_once 'Model/Comment.php';
-require_once 'View/View.php';
-
 class ControllerArticle {
 
     private ArticleManager $articleManager;
