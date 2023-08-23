@@ -1,9 +1,6 @@
 <?php
 
 abstract class AbstractEntity {
-    protected function formatDate($date) {
-        return date('d/m/Y', strtotime($date));
-    }
 
     // Hydration method to populate object properties from an array
     public function hydrate(array $data) {
